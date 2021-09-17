@@ -5,8 +5,8 @@ import "testing"
 func Test_Observer(t *testing.T) {
 
 	originObserver := NewOriginObserver()
-	plusObserver := NewPlusObserver()
-	decreaseObserver := NewDecreaseObserver()
+	plusObserver := &PlusObserver{}
+	decreaseObserver := &DecreaseObserver{}
 	subject := NewSubject()
 	subject.attach(originObserver)
 	subject.attach(plusObserver)

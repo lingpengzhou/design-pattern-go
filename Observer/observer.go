@@ -12,7 +12,9 @@ type Subject struct {
 }
 
 func NewSubject() *Subject {
-	return &Subject{}
+	return &Subject{
+		observers: make([]Observer, 0),
+	}
 }
 
 func (subject *Subject) getState() int {
@@ -25,7 +27,7 @@ func (subject *Subject) setState(state int) {
 }
 
 func (subject *Subject) attach(observer Observer) {
-	subject.observers = make([]Observer, 0)
+
 	subject.observers = append(subject.observers, observer)
 }
 
@@ -52,10 +54,6 @@ func (originObserver *OriginObserver) update(state int) {
 type PlusObserver struct {
 }
 
-func NewPlusObserver() *PlusObserver {
-	return &PlusObserver{}
-}
-
 func (plusObserver *PlusObserver) update(state int) {
 	log.Println("plusObserver:", state+1)
 }
@@ -63,9 +61,6 @@ func (plusObserver *PlusObserver) update(state int) {
 type DecreaseObserver struct {
 }
 
-func NewDecreaseObserver() *DecreaseObserver {
-	return &DecreaseObserver{}
-}
 func (decreaseObserver *DecreaseObserver) update(state int) {
 	log.Println("decreaseObserver:", state-1)
 }
