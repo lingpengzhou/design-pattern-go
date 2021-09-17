@@ -1,4 +1,4 @@
-package Observer
+package observertest
 
 import "log"
 
@@ -9,6 +9,10 @@ type Observer interface {
 type Subject struct {
 	observers []Observer
 	state     int
+}
+
+func NewSubject() *Subject {
+	return &Subject{}
 }
 
 func (subject *Subject) getState() int {
@@ -32,6 +36,13 @@ func (subject *Subject) notifyAll() {
 }
 
 type OriginObserver struct {
+	name string
+}
+
+func NewOriginObserver() *OriginObserver {
+	return &OriginObserver{
+		name: "test",
+	}
 }
 
 func (originObserver *OriginObserver) update(state int) {
@@ -41,6 +52,10 @@ func (originObserver *OriginObserver) update(state int) {
 type PlusObserver struct {
 }
 
+func NewPlusObserver() *PlusObserver {
+	return &PlusObserver{}
+}
+
 func (plusObserver *PlusObserver) update(state int) {
 	log.Println("plusObserver:", state+1)
 }
@@ -48,6 +63,9 @@ func (plusObserver *PlusObserver) update(state int) {
 type DecreaseObserver struct {
 }
 
+func NewDecreaseObserver() *DecreaseObserver {
+	return &DecreaseObserver{}
+}
 func (decreaseObserver *DecreaseObserver) update(state int) {
 	log.Println("decreaseObserver:", state-1)
 }
