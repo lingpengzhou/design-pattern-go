@@ -37,17 +37,17 @@ type MediaAdapter struct {
 	advancedMediaPlayer AdvancedMediaPlayer
 }
 
-func setMediaAdapter(audioType string) *MediaAdapter {
+func setMediaAdapter(audioType string) MediaAdapter {
 	if audioType == "vlc" {
-		return &MediaAdapter{
+		return MediaAdapter{
 			&VlcPlayer{},
 		}
 	} else if audioType == "mp4" {
-		return &MediaAdapter{
+		return MediaAdapter{
 			&Mp4Player{},
 		}
 	}
-	return nil
+	return MediaAdapter{}
 }
 
 func (mediaAdapter *MediaAdapter) play(audioType string, fileName string) {
@@ -66,7 +66,7 @@ func (audioPlayer *AudioPlayer) play(audioType string, fileName string) {
 	if audioType == "mp3" {
 		log.Println("Playing mp3 file Name:" + fileName)
 	} else if audioType == "vlc" || audioType == "mp4" {
-		audioPlayer.mediaAdapter = *setMediaAdapter(audioType)
+		audioPlayer.mediaAdapter = setMediaAdapter(audioType)
 		audioPlayer.mediaAdapter.play(audioType, fileName)
 	} else {
 		log.Println("not supported")
